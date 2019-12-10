@@ -64,9 +64,5 @@ public class utils {
 		LineString p = gf.createLineString(coordinates);
 		return p;
 	}
-	
-	public static STObject getSTObjectFromString(String s){
-		
-		return null;
-	}
+
 }

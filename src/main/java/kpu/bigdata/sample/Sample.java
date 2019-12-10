@@ -48,8 +48,8 @@ public class Sample {
 		STObject stPoint2 = new STObject(i, utils.createPoint(5*MUL, 6*MUL)); // POINT(7,5 6)
 		
 		// stPoint1 시각화
-		new STObjectViz(stPoint1.toSTObject());
-		new STObjectViz(stPoint2.toSTObject());
+		new STObjectViz(stPoint1);
+		new STObjectViz(stPoint2);
 		
 		// 시공간 라인스트링 생성을 위한 x, y 좌표들
 		double stLine1_x[] = {
@@ -64,8 +64,8 @@ public class Sample {
 		STObject stLine2 = new STObject(p2, utils.createLineString(stLine1_x, stLine1_y, stLine1_x.length));
 
 		// stLine1,2 시각화
-		new STObjectViz(stLine1.toSTObject());
-		new STObjectViz(stLine2.toSTObject());
+		new STObjectViz(stLine1);
+		new STObjectViz(stLine2);
 		
 		// 시공간 다각형 생성을 위한 x, y 좌표들
 		double stPolygon1_x[] = {
@@ -87,8 +87,8 @@ public class Sample {
 		STObject stPolygon2 = new STObject(p2, utils.createPolygon(stPolygon2_x, stPolygon2_y, stPolygon2_x.length));
 		
 		// stPolygon1 시각화
-		new STObjectViz(stPolygon1.toSTObject());
-		new STObjectViz(stPolygon2.toSTObject());
+		new STObjectViz(stPolygon1);
+		new STObjectViz(stPolygon2);
 		
 		// --------- 관계 연산자 테스트 -------------
 		System.out.println("stPOINT 1 :\n"+stPoint1.toString());
@@ -204,7 +204,7 @@ public class Sample {
 		System.out.println("TAXI1 LEAVES SOME STPOLYGON ? : "+taxi1.leaves(someSTPolygon));
 		System.out.println("TAXI1 PASSES SOME STPOLYGON ? : "+taxi1.passes(someSTPolygon));
 
-		new STObjectMultiViz("TAXI 1", someSTPolygon.toSTObject(), taxi1.toSTObject());
+		new STObjectMultiViz("TAXI 1", someSTPolygon, taxi1);
 		
 		System.out.println("TAXI2 :\n"+taxi2.toString());
 		System.out.println();
@@ -213,7 +213,7 @@ public class Sample {
 		System.out.println("TAXI2 LEAVES SOME STPOLYGON ? : "+taxi2.leaves(someSTPolygon));
 		System.out.println("TAXI2 PASSES SOME STPOLYGON ? : "+taxi2.passes(someSTPolygon));
 		
-		new STObjectMultiViz("TAXI 2", someSTPolygon.toSTObject(), taxi2.toSTObject());
+		new STObjectMultiViz("TAXI 2", someSTPolygon, taxi2);
 		
 		System.out.println("TAXI3 :\n"+taxi3.toString());
 		System.out.println();
@@ -222,7 +222,7 @@ public class Sample {
 		System.out.println("TAXI3 LEAVES SOME STPOLYGON ? : "+taxi3.leaves(someSTPolygon));
 		System.out.println("TAXI3 PASSES SOME STPOLYGON ? : "+taxi3.passes(someSTPolygon));
 		
-		new STObjectMultiViz("TAXI 3", someSTPolygon.toSTObject(), taxi3.toSTObject());
-		System.out.println(taxi3.toSTObject().toString());
+		new STObjectMultiViz("TAXI 3", someSTPolygon, taxi3);
+		System.out.println(taxi3.toString());
 	}
 }

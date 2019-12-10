@@ -17,7 +17,7 @@ import kpu.bigdata.temporal.type.Instant;
 import kpu.bigdata.temporal.type.Period;
 import kpu.bigdata.temporal.type.Temporal;
 
-public class STObject extends SpatioTemporal implements Cloneable {
+public class STObject implements SpatioTemporal, Cloneable {
 	/*
 	 * 
 	 *  STGeometry 타입
@@ -28,6 +28,7 @@ public class STObject extends SpatioTemporal implements Cloneable {
 	
 	// 시간에 따른 공간객체 정보를 가지는 해쉬맵
 	private HashMap<Long, Geometry> stGeometry;
+	private HashMap<String, String> userData = null;
 
 	public STObject() {
 		stGeometry = new HashMap<>();
@@ -58,13 +59,15 @@ public class STObject extends SpatioTemporal implements Cloneable {
 		}
 	}
 
-	public void put(STObject obj) {
+	
+	@Override
+	public void put(SpatioTemporal obj) {
 		LinkedList<Long> keys = new LinkedList<>(obj.getGeomtryMap().keySet());
 		for(long l : keys){
 			stGeometry.put(l, obj.getGeomtryMap().get(l));
 		}
 	}
-	
+
 	// 시간에 따른 공간객체 정보를 가지는 해쉬맵을 반환
 	public HashMap<Long, Geometry> getGeomtryMap(){
 		return stGeometry;
@@ -102,14 +105,10 @@ public class STObject extends SpatioTemporal implements Cloneable {
 	@Override
 	public String toString() {
 		String s = "ST_OBJECT (";
-		if(getUserData() != null){
+		if(userData != null){
 			s = "ST_OBJECT<";
-			Object ud = getUserData();
-			if(ud instanceof HashMap){
-				HashMap<String, String> um = (HashMap<String, String>)ud;
-				for(String key:um.keySet()){
-					s+=key+":"+um.get(key)+";";
-				}
+			for(String key:userData.keySet()){
+				s+=key+":"+userData.get(key)+";";
 			}
 			s+="> (";
 		}
@@ -645,5 +644,21 @@ public class STObject extends SpatioTemporal implements Cloneable {
 				return true;
 		}
 		return false;
+	}
+
+	public String getName(){
+		if(userData instanceof HashMap){
+			HashMap<String, String> ud = (HashMap<String, String>)userData;
+			return ud.getOrDefault("name", null);
+		}
+		return "undefined";
+	}
+	
+	public void setUserData(HashMap<String, String> userData) {
+		this.userData = userData;
+	}
+	
+	public HashMap<String, String> getUserData() {
+		return userData;
 	}
 }

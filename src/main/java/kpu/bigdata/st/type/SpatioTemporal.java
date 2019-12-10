@@ -2,12 +2,16 @@ package kpu.bigdata.st.type;
 
 import java.util.HashMap;
 
+import com.vividsolutions.jts.geom.Geometry;
+
 import kpu.bigdata.st.operator.AnalsysOperator;
 import kpu.bigdata.st.operator.RelationalOperator;
 import kpu.bigdata.st.operator.TrajectoryOperators;
+import kpu.bigdata.temporal.type.Instant;
+import kpu.bigdata.temporal.type.Temporal;
 
 
-public abstract class SpatioTemporal implements RelationalOperator, AnalsysOperator, TrajectoryOperators{
+public interface SpatioTemporal extends RelationalOperator, AnalsysOperator, TrajectoryOperators{
 
 	/*
 	 * 
@@ -17,39 +21,15 @@ public abstract class SpatioTemporal implements RelationalOperator, AnalsysOpera
 	 * */
 	
 	// 데이터
-	private Object userData = null;
 	
-	public SpatioTemporal() {
-		
-	}
+	public void put(long t, Geometry p);
+	public void put(Temporal t, Geometry p);
+	public void put(SpatioTemporal obj);
 	
-	public SpatioTemporal(Object userData) {
-		this.userData = userData;
-	}
+	public HashMap<Long, Geometry> getGeomtryMap();
 	
-	public Object getUserData() {
-		return userData;
-	}
+	public Geometry at(Instant i);
+	public Geometry at(long i);
 	
-	public String getName(){
-		if(userData instanceof HashMap){
-			HashMap<String, String> ud = (HashMap<String, String>)userData;
-			return ud.getOrDefault("name", null);
-		}
-		return "undefined";
-	}
-	
-	public void setUserData(Object userData) {
-		this.userData = userData;
-	}
-	
-	// STGeometry 타입으로 변환
-	// 본 라이브러리에서 제공하는 시각화 도구는 STGeometry 타입을 인자로 가짐
-	public STObject toSTObject() {
-		STObject stg = null;
-		if(this instanceof STObject) {
-			return (STObject)this;
-		}
-		return stg;
-	}
+	public String toString();
 }
